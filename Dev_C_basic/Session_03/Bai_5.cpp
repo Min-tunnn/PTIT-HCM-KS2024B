@@ -1,10 +1,11 @@
 #include<stdio.h>
 #include<stdlib.h>
-void input()
+void input(int &n)
 {
 	int age, ran_word; 
+	
 	long long numberPhone;
-	for (int i=1; i<=10;i++)
+	for (int i=1; i<=n;i++)
 	{
 		
 		
@@ -23,10 +24,13 @@ void input()
 int main()
 {
 	//  nhan de bai
+	int n;
+	printf("Nhap so luong nhan vien: ");
+	scanf("%d", &n);
 	printf("			DANH SACH SINH VIEN			\n");
 	printf("--------------------------------------------------------------------\n");
 	printf("| STT | Ho va ten	| Tuoi | So dien thoai  | email            |\n");
 	printf("--------------------------------------------------------------------\n");
-	input();
+	input(n);
 	return 0;
 }
