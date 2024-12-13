@@ -11,7 +11,7 @@ int main()
 	if(time>160)
 	{
 		printf("duoc nhan them phu cap: \n");
-		pCap=(money*time/100)*10;
+		pCap=((money*time)/100)*10;
 	}
 	else
 	{
