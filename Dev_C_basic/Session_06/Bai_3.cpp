@@ -2,15 +2,18 @@
 #include<string.h>
 int main()
 {
-	long long pass[100], temp[100];
-	printf("Dat mk: ");
-	scanf("%s", &pass);
-	do
+	char pass[]="Tuan9168";
+	char temp[100];
+	again:
+	printf("Nhap mk: "); scanf("%49s", &temp);
+	if(strcmp(pass, temp)==0)
 	{
-		printf("Nhap mk: ");
-		scanf("%s", &temp);
-		printf("%s = %s", pass, temp);
-	}while(pass!=temp);
-	printf("Nhap mk chinh xac ");
+		printf("Nhap mk chinh xac ");
+	}
+	else
+	{
+		printf("Vui long nhap lai:\n");
+		goto again;
+	}
 	return 0;
 }
