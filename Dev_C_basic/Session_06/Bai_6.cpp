@@ -9,14 +9,9 @@ int main()
 	}
 	for (int i=0; i<sizeof(n)/sizeof(n[0]);i++)
 	{
-		if(n[i]%2==0)
-		{
-			n[i]+=3;
-		}
-		else
-		{
-			n[i]+=2;
-		}
+		if(n[i]%2==0) n[i]+=3;
+		else n[i]+=2;
+		
 		printf("%d ", n[i]);
 	}
 	return 0;
