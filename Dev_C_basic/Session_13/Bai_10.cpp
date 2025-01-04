@@ -106,38 +106,58 @@ void sort(int n, int arr[max])
 	}
 	
 }
-void search_arr(int n, int arr[max])
+void search_arr(int n, int arr[max], int flag_sort)
 {
 	int key, temp[max], check=0;
 	int j=0;
-	printf("Nhap gia tri can tim: "); scanf("%d", &key);
-	for (int i = 0; i < n; i++) 
+	char choice_char;
+	again_search:
+	printf("Lua chon: "); scanf("%s", &choice_char );
+	if(choice_char=='a'||choice_char=='A')
 	{
-        if (arr[i] == key) 
+		printf("Nhap gia tri can tim: "); scanf("%d", &key);
+		for (int i = 0; i < n; i++) 
 		{
-			check=1;
-           temp[j]=i;
-           j++;
-        }
-    }
-    if(check)
-    {
-    	printf("so lan xuat hien trong mang: %d .\n", j);
-    	printf("phan tu %d xuat hien o vtri: ", key);
-    	for(int i=0; i<j; i++)
-    	{
-    		printf("[%d] ", temp[i]);
+	        if (arr[i] == key) 
+			{
+				check=1;
+	           temp[j]=i;
+	           j++;
+	        }
+	    }
+	    if(check)
+	    {
+	    	printf("so lan xuat hien trong mang: %d .\n", j);
+	    	printf("phan tu %d xuat hien o vtri: ", key);
+	    	for(int i=0; i<j; i++)
+	    	{
+	    		printf("[%d] ", temp[i]);
+			}
+			
+		}else{
+			printf("Phan tu %d khong xuat hien trong mang\n");
+		}
+	}else if(choice_char=='b'||choice_char=='B')
+	{
+		if(flag_sort!=1)
+		{
+			printf("Vui long sap xep cac phan tu trong mang truoc khi tim!!!\n");
+			
+		}else{
+			
 		}
 		
 	}else{
-		printf("Phan tu %d khong xuat hien trong mang\n");
+		printf("VUI LONG NHAP LAI!!\n");
+		goto again_search;
 	}
+		
     
     
 }
 int main()
 {
-	int choice, n, arr[max], flag=0;
+	int choice, n, arr[max], flag=0, flag_sort=0;
 	
 	menu:
 	printf("====================***  MENU  ***====================\n");
@@ -153,6 +173,7 @@ int main()
 	printf("Lua chon: "); scanf("%d", &choice);
 	switch (choice)
 	{
+		flag_sort=0;
 		case 1:
 			flag=1;
 			{
@@ -215,6 +236,7 @@ int main()
 				break;
 			}
 		case 6:
+			flag_sort=1;
 			if(flag==1)
 			{
 				printf("a. Tang dan\n");
@@ -232,7 +254,9 @@ int main()
 		case 7:
 			if(flag==1)
 			{
-				search_arr(n, arr);;
+				printf("a. Tim kiem tuyen tinh\n");
+				printf("b. Tim kiem nhi phan\n");
+				search_arr(n, arr, flag_sort);
 				printf("\n");
 				goto menu;
 				break;
