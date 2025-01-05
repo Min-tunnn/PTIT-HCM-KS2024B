@@ -18,6 +18,6 @@ int main()
 			count++;
 		}
 	}
-	printf("\nSo lan ky tu %c xuat hien trong chuoi la: %d", find, count);
+	printf("\nSo lan ky tu '%c' xuat hien trong chuoi la: %d", find, count);
 	return 0;
 }
