@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-#define MAX_SINH_VIEN 5
+#define MAX 5
 
 struct SinhVien 
 {
@@ -35,7 +35,7 @@ void sapXepSinhVienTheoTen(struct SinhVien sinhVien[], int currentLength)
 }
 
 int main() {
-    struct SinhVien sinhVien[MAX_SINH_VIEN] = 
+    struct SinhVien sinhVien[MAX] = 
 	{
         {1, "Minh Tuan", 20, "0123456789"},
         {2, "tran Trog", 21, "0987654321"},
