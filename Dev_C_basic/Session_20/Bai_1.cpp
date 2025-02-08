@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#define MAX_BOOKS 100
+#define MAX 100
 
 struct Book 
 {
@@ -44,7 +44,7 @@ void displayBooks(struct Book books[], int count)
 
 void addBookAtPosition(struct Book books[], int *count) 
 {
-    if (*count>=MAX_BOOKS) 
+    if (*count>=MAX) 
 	{
         printf("Khong the them sach, danh sach day!\n");
         return;
@@ -99,7 +99,7 @@ void deleteBookById(struct Book books[], int *count)
 
 int main() 
 {
-    struct Book books[MAX_BOOKS];
+    struct Book books[MAX];
     int count=0;
     int choice;
     
