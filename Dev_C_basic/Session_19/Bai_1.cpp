@@ -1,76 +1,71 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
-#define MAX_SINH_VIEN 5
+#define MAX 5
 
-struct SinhVien 
+struct Student 
 {
-    int id;
-    char name[50];
+    char id[20];
+    char name[100];
     int age;
     char phoneNumber[15];
 };
 
-void inDanhSachSinhVien(struct SinhVien sinhVien[], int currentLength) 
+struct Student students[MAX]={
+    {"SV001", "Nguyen Van A", 20, "0123456789"},
+    {"SV002", "Tran Thi B", 21, "0987654321"},
+    {"SV003", "Le Van C", 22, "0345678901"},
+    {"SV004", "Pham Van D", 23, "0765432109"},
+    {"SV005", "Hoang Thi E", 19, "0890123456"}
+};
+int currentLength=MAX;
+
+void displayStudents() 
 {
-    for (int i = 0; i < currentLength; i++) 
+    printf("\nDanh sach sinh vien:\n");
+    for (int i=0; i<currentLength; i++) 
 	{
-        printf("%d %s %d %s\n", sinhVien[i].id, sinhVien[i].name, sinhVien[i].age, sinhVien[i].phoneNumber);
+        printf("ID: %s, Ten: %s, Tuoi: %d, SDT: %s\n",
+               students[i].id, students[i].name, students[i].age, students[i].phoneNumber);
     }
 }
 
-void xoaSinhVien(struct SinhVien sinhVien[], int *currentLength, int id) 
+void deleteStudentById(char id[]) 
 {
-	
-    int index = -1;
-    for (int i=0; i<*currentLength; i++) 
+    int index=-1;
+    for (int i=0; i<currentLength; i++) 
 	{
-        if (sinhVien[i].id==id) 
+        if (strcmp(students[i].id, id) == 0) 
 		{
-            index=i;
+            index = i;
             break;
         }
     }
-
+    
     if (index==-1) 
 	{
-        printf("Sinh vien voi id %d khong ton tai!\n", id);
+        printf("Khong tim thay sinh vien co ID: %s\n", id);
         return;
     }
-
-    for (int i=index; i<*currentLength-1; i++) 
+    
+    for (int i=index; i<currentLength-1; i++) 
 	{
-        sinhVien[i]=sinhVien[i+1];
+        students[i]=students[i+1];
     }
-    (*currentLength)--;
-
-    printf("Da xoa %d.\n", id);
+    currentLength--;
+    printf("Sinh vien co ID %s da duoc xoa!\n", id);
 }
 
 int main() 
 {
-    struct SinhVien sinhVien[MAX_SINH_VIEN] = 
-	{
-        {1, "Nguyen A", 20, "0123456789"},
-        {2, "Tran B", 21, "0987654321"},
-        {3, "Le C", 22, "0912345678"},
-        {4, "Pham D", 23, "0987123456"},
-        {5, "Hoang E", 24, "0934567890"}
-    };
-
-    int currentLength=5;  
-    int idToDelete;
-
-    printf("Danh sach sinh vien:\n");
-    inDanhSachSinhVien(sinhVien, currentLength);
-
-    printf("Nhap id sinh vien can xoa: ");
-    scanf("%d", &idToDelete);
-
-    xoaSinhVien(sinhVien, &currentLength, idToDelete);
-
-    printf("\nDanh sach sau khi xoa sinh vien:\n");
-    inDanhSachSinhVien(sinhVien, currentLength);
-
+    printf("Danh sach sinh vien ban dau:\n");
+    displayStudents();
+    char idToDelete[20];
+    printf("\nNhap ID sinh vien can xoa: ");
+    scanf("%s", idToDelete);
+    deleteStudentById(idToDelete);
+    printf("\nDanh sach sinh vien sau khi xoa:\n");
+    displayStudents();
     return 0;
 }
 
