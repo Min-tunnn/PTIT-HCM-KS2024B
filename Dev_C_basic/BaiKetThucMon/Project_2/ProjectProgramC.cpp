@@ -1,0 +1,123 @@
+//libery
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+//limits binary
+#define MAX_CategoryList 100
+#define MAX_Products 100
+//Acount admin
+#define EMAIL "t"
+#define PASSWORD "T"
+#include "ColorText.h"
+#include "Reference.h"
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+int main()
+{
+	Authentication(); //authnti acount admin
+	int choice;
+	loadCategories();
+	categoryMenu:
+	printf("%3s***Store Management System Using C***\n", "");
+	printf(BMAG "%15s(CATEGORY)\n" reset, "");
+	printf("%12sCHOOSE YOUR ROLE\n", "");
+	printf("%8s========================\n", "");
+	printf("%8s[1] Show category list.\n", "");
+	printf("%8s[2] Add category.\n", "");
+	printf("%8s[3] Edit category (Can't edit ID).\n", "");
+	printf("%8s[4] Remove category.\n", "");
+	printf("%8s[5] Search category by name.\n", "");
+	printf("%8s[6] Sort category list by name.\n", "");
+	printf("%8s[7] Check input data for category.\n", "");
+	printf("%8s[8] Save Data.\n", "");
+	printf("%8s[0] Exit Program.\n", "");
+	printf("%8s========================\n" reset, "");
+	printf("%8sEnter The Choice:", ""); scanf("%d", &choice);
+	switch(choice)
+	{
+		case 1:
+			{
+				showCategoryList_1();
+				/*EMTY*/
+				printf(BYEL "%4s[0] Back / [1] Edit product in category\n" reset, "" );
+				do
+				{
+					printf("%4sEnter The Choice:", ""); scanf("%d", &choice);
+				}while(choice<0||choice>1);
+				if(choice==0) goto categoryMenu;
+				else{
+					productMenu:
+					printf("%3s***Store Management System Using C***\n", "");
+					printf(BCYN "%16s(PRODUCT)\n" reset, "");
+					printf("%12sCHOOSE YOUR ROLE\n", "");
+					printf("%8s========================\n", "");
+					printf("%8s[1] Add product.\n", "");
+					printf("%8s[2] Edit product.\n", "");
+					printf("%8s[3] Remove product.\n", "");
+					printf("%8s[4] Sort by price.\n", "");
+					printf("%8s[5] Sort by name.\n", "");
+					printf("%8s[6] Find product by name.\n", "");
+					printf("%8s[7] Back to main menu.\n", "");
+					printf("%8s[0] Exit Program.\n", "");
+					printf("%8s========================\n" reset, "");
+					printf("%8sEnter The Choice:", ""); scanf("%d", &choice);
+					switch (choice)
+					{
+						case 1:
+							{
+								break;
+							}
+						case 7:
+							{
+								goto categoryMenu;
+								break;
+							}
+						default:
+							printf(BRED "%5sVui long nhap lai [0-7]!!\n" reset, "");
+							goto productMenu;
+							break;
+					}
+				}
+				goto categoryMenu;		
+				break;
+			}
+		case 2:
+			{
+				addCategory_2();
+				goto categoryMenu;
+			}
+		case 3:
+			{
+				editCategory_3();
+				goto categoryMenu;
+				break;
+			}
+		case 4:
+			{
+				removeCategory_4();
+				goto categoryMenu;
+				break;
+			}
+		case 5:
+			{
+				searchCategory_5();
+				goto categoryMenu;
+				break;
+			}
+		case 6:
+			{
+				
+				goto categoryMenu;
+				break;
+			}
+		case 0:
+			{
+			    printf(BYEL"\n%5s========= Thank you =========\n", "");
+			    printf("%5s  ===== See you soon =====" reset, "");
+			    exit(0);
+			}
+		default:
+			printf(BRED "Vui long nhap lai [0-9]!!!\n" reset);
+			goto categoryMenu;
+	}
+	return 0;
+}
