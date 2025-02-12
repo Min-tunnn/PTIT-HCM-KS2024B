@@ -1,9 +1,4 @@
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-											/* reference*/
-#include<stdio.h>
-
-
-
+ #include<stdio.h>
 typedef struct{
 	char idCategory[5];
 	char nameCategory[100];
@@ -15,6 +10,9 @@ typedef struct{
 	long long price;
 	char note[50];
 } PRODUCT;
+ 
+ ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+ //AUTHENTIC ACOUNT ADMIN
 void Authentication()//xac minh tk admin ->
 {
 	do
@@ -33,12 +31,12 @@ void Authentication()//xac minh tk admin ->
 		}else printf(BRED "%15sWRONG !!!\n\n" reset, "");
 	}while(1);
 }
-//***!!!
 int categoryCount=0;
 CATEGORY categories[MAX_CategoryList];
 PRODUCT products[MAX_Products];
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/* */
+/* reference - CATEGORY */
+
 void loadCategories()// doc file txt list_danh_muc
 {
     FILE *file=fopen("CategoryList.txt", "r");
@@ -82,33 +80,30 @@ void saveCategories_8()
         fclose(file);
     }
 }
-void addCategory_2() 
-{
-    if (categoryCount>=MAX_CategoryList) 
-	{
+void addCategory_2() {
+    if (categoryCount >= MAX_CategoryList) {
         printf(BRED "\nCategory List Is Full!!\n" reset);
         return;
     }
     printf("%5sInput ID: ", "");
     char id[5];
     scanf("%5s", id);
-    getchar(); // Xoa bo nho dem
+    getchar(); // Xóa b? nh? d?m
 
-    for (int i = 0; i < categoryCount; i++) 
-	{
-        if (strcmp(categories[i].idCategory, id)==0) 
-		{
-            printf(BGRN "ID already!!!\n" reset);
+    for (int i = 0; i < categoryCount; i++) {
+        if (strcmp(categories[i].idCategory, id) == 0) {
+            printf(BGRN "ID already exists!\n" reset);
             return;
         }
     }
 
-    printf("Enter category name:");
+    printf("Enter category name: ");
     fgets(categories[categoryCount].nameCategory, 100, stdin);
-    categories[categoryCount].nameCategory[strcspn(categories[categoryCount].nameCategory, "\n")] = 0;// loai bo ky tu \n
+    categories[categoryCount].nameCategory[strcspn(categories[categoryCount].nameCategory, "\n")] = 0; // Xóa ký t? \n
     strcpy(categories[categoryCount].idCategory, id);
     categoryCount++;
-    saveCategories_8();
+
+    printf(BYEL "Category added! But not saved yet.\n" reset);
 }
 void editCategory_3()
 {
@@ -126,10 +121,9 @@ void editCategory_3()
             saveCategories_8();
             printf("%5sCategory updated successfully!\n", "");
             return;
+		}else{
+			printf("%5sCan't found your ID category!!!\n", "");
 		}
-		else{
-		printf("%5sCan't found your ID category!!!\n", "");
-	}
 	}
 }
 void removeCategory_4() 
@@ -138,11 +132,14 @@ void removeCategory_4()
     printf("%5sREMOVE CATEGORY:\n", "");
     printf("%8sPlease input ID Category to remove: ", "");
     scanf("%4s", removeID);
-    getchar(); // Xóa b? nh? d?m
+    getchar();
     
-    for (int i = 0; i < categoryCount; i++) {
-        if (strcmp(categories[i].idCategory, removeID) == 0) {
-            for (int j=i; j<categoryCount-1; j++) {
+    for (int i=0; i<categoryCount; i++) 
+	{
+        if (strcmp(categories[i].idCategory, removeID) == 0) 
+		{
+            for (int j=i; j<categoryCount-1; j++) 
+			{
                 categories[j]=categories[j+i];
             }
             categoryCount--;
@@ -168,7 +165,7 @@ void searchCategory_5() {
 	printf("%4s|=========|==========================|\n", "", "");
     for (int i=0; i<categoryCount; i++) 
 	{
-        if (strstr(categories[i].nameCategory, searchName) != NULL) //strstr kiem tra gia tri chuoi không tuyet doi
+        if (strstr(categories[i].nameCategory, searchName) != NULL) //kiem tra chuoi ko tuyet doi strstr
 		{
 			printf("%4s|%2s%s%2s|%9s%s%9s|\n", "", "", categories[i].idCategory, "", "", categories[i].nameCategory, "");
 	        printf("%4s|=========|==========================|\n", "", "");
@@ -180,3 +177,59 @@ void searchCategory_5() {
 		printf("%4s|====================================|\n", "", "");
     }
 }
+void sortCategoriesByName_6() 
+{
+    for (int i = 0; i<categoryCount-1; i++) 
+	{
+        for (int j=i+1; j<categoryCount; j++) 
+		{
+            if (strcmp(categories[i].nameCategory, categories[j].nameCategory) > 0) 
+			{
+                CATEGORY temp=categories[i];
+                categories[i]=categories[j];
+                categories[j]=temp;
+            }
+        }
+    }
+    saveCategories_8(); // Luu danh sach vao txt
+    printf(BGRN "Categories sorted successfully!\n" reset);
+}
+void checkCategoryData_7() 
+{
+    FILE *file=fopen("CategoryList.txt", "r");
+    if (!file) 
+	{
+        printf(BRED "Error: Cannot open CategoryList.txt!\n" reset);
+        return;
+    }
+
+    char id[5], name[100];
+    int line = 0, errorCount = 0;
+    printf(BYEL "Checking category data...\n" reset);
+    while (fscanf(file, "%4s %[^\n]", id, name)==2) 
+	{
+        line++;
+        // Kiem tra ID
+        if (strlen(id) != 4) 
+		{
+            printf(BRED "Line %d: Invalid ID format (%s)!\n" reset, line, id);
+            errorCount++;
+        }
+        // Kiem tra ten
+        if (strlen(name)==0) 
+		{
+            printf(BRED "Line %d: Category name is empty!\n" reset, line);
+            errorCount++;
+        }
+    }
+    fclose(file);
+
+    if (errorCount == 0) {
+        printf(BGRN "All category data is valid!\n" reset);
+    } else {
+        printf(BRED "Total errors found: %d\n" reset, errorCount);
+    }
+}
+////////////////////////////////////////////////////////////////////////////////////////////////
+/* Refernce - Product */
+

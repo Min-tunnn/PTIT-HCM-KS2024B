@@ -8,12 +8,12 @@
 //Acount admin
 #define EMAIL "t"
 #define PASSWORD "T"
-#include "ColorText.h"
+#include "DesignColor.h"
 #include "Reference.h"
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 int main()
 {
-	Authentication(); //authnti acount admin
+//	Authentication(); //authnti acount admin
 	int choice;
 	loadCategories();
 	categoryMenu:
@@ -80,7 +80,7 @@ int main()
 				goto categoryMenu;		
 				break;
 			}
-		case 2:
+	case 2:
 			{
 				addCategory_2();
 				goto categoryMenu;
@@ -105,10 +105,23 @@ int main()
 			}
 		case 6:
 			{
-				
+				sortCategoriesByName_6();
 				goto categoryMenu;
 				break;
 			}
+		case 7:
+			{
+				checkCategoryData_7();
+				goto categoryMenu;
+				break;
+			}
+		case 8:
+	    	{
+		        saveCategories_8();
+		        printf(BGRN "Categories saved successfully!\n" reset);
+		        goto categoryMenu;
+		        break;
+	    	}
 		case 0:
 			{
 			    printf(BYEL"\n%5s========= Thank you =========\n", "");
