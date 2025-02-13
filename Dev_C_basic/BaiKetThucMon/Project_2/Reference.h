@@ -1,18 +1,18 @@
- #include<stdio.h>
+#include<stdio.h>
+
 typedef struct{
 	char idCategory[5];
 	char nameCategory[100];
+	int productCount;
 } CATEGORY;
 typedef struct{
+	char idCategory[5];
 	char idProduct[5];
 	char nameProduct[100];
 	int slots;
 	long long price;
 	char note[50];
 } PRODUCT;
- 
- ///////////////////////////////////////////////////////////////////////////////////////////////////////////
- //AUTHENTIC ACOUNT ADMIN
 void Authentication()//xac minh tk admin ->
 {
 	do
@@ -31,12 +31,13 @@ void Authentication()//xac minh tk admin ->
 		}else printf(BRED "%15sWRONG !!!\n\n" reset, "");
 	}while(1);
 }
+//**global  virble*!!!
 int categoryCount=0;
+int productCount=0;
 CATEGORY categories[MAX_CategoryList];
 PRODUCT products[MAX_Products];
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/* reference - CATEGORY */
-
+/* Reference - Category */
 void loadCategories()// doc file txt list_danh_muc
 {
     FILE *file=fopen("CategoryList.txt", "r");
@@ -81,15 +82,15 @@ void saveCategories_8()
     }
 }
 void addCategory_2() {
-    if (categoryCount >= MAX_CategoryList) {
+    if (categoryCount>=MAX_CategoryList) 
+	{
         printf(BRED "\nCategory List Is Full!!\n" reset);
         return;
     }
     printf("%5sInput ID: ", "");
     char id[5];
-    scanf("%5s", id);
-    getchar(); // Xóa b? nh? d?m
-
+    scanf("%4s", id);
+    getchar(); 
     for (int i = 0; i < categoryCount; i++) {
         if (strcmp(categories[i].idCategory, id) == 0) {
             printf(BGRN "ID already exists!\n" reset);
@@ -232,4 +233,123 @@ void checkCategoryData_7()
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////
 /* Refernce - Product */
+void loadProducts() {
+    FILE *file = fopen("ProductList.txt", "r");
+    if (file == NULL) {
+        printf(BRED "Error opening product file!\n" reset);
+        return;
+    }
+
+    productCount = 0;
+    while (fgets(products[productCount].idProduct, sizeof(products[productCount].idProduct), file)) {
+        // Xóa ký t? xu?ng dòng
+        products[productCount].idProduct[strcspn(products[productCount].idProduct, "\n")] = '\0';
+
+        fgets(products[productCount].nameProduct, sizeof(products[productCount].nameProduct), file);
+        products[productCount].nameProduct[strcspn(products[productCount].nameProduct, "\n")] = '\0';
+
+        fscanf(file, "%f\n", &products[productCount].price);
+
+        fgets(products[productCount].idCategory, sizeof(products[productCount].idCategory), file);
+        products[productCount].idCategory[strcspn(products[productCount].idCategory, "\n")] = '\0';
+
+        productCount++;
+
+        if (productCount >= MAX_Products) {
+            printf(BRED "Product list is full!\n" reset);
+            break;
+        }
+    }
+
+    fclose(file);
+}
+
+void saveProducts() {
+    FILE *file = fopen("ProductList.txt", "w");
+    if (file) {
+        for (int i = 0; i < productCount; i++) {
+            fprintf(file, "%s %s %s %d %lld %s\n", products[i].idCategory, products[i].idProduct, products[i].nameProduct, products[i].slots, products[i].price, products[i].note);
+        }
+        fclose(file);
+    }
+}
+void addProduct(char idCategory[4]) {
+    if (productCount >= MAX_Products) {
+        printf(RED "\nProduct List Is Full!!\n" reset);
+        return;
+    }
+
+
+    int categoryExists = 0;
+    for (int i = 0; i < categoryCount; i++) {
+        if (strcmp(categories[i].idCategory, idCategory) == 0) {
+            categoryExists = 1;
+            break;
+        }
+    }
+
+    if (!categoryExists) {
+        printf(RED "Category ID not found! %s\n" reset, idCategory);
+        return;
+    }
+    
+
+    printf("Enter product ID: ");
+    scanf("%4s", products[productCount].idProduct);
+    getchar();
+    
+    printf("Enter product name: ");
+    fgets(products[productCount].nameProduct, 100, stdin);
+    products[productCount].nameProduct[strcspn(products[productCount].nameProduct, "\n")] = 0;
+    
+    printf("Enter slots: ");
+    scanf("%d", &products[productCount].slots);
+    getchar();
+    
+    printf("Enter price: ");
+    scanf("%lld", &products[productCount].price);
+    getchar();
+    
+    printf("Enter note: ");
+    fgets(products[productCount].note, 50, stdin);
+    products[productCount].note[strcspn(products[productCount].note, "\n")] = 0;
+    
+    strcpy(products[productCount].idCategory, idCategory);
+    productCount++;
+    
+    saveProducts();
+    printf(GRN "Product added and saved successfully!\n" reset);
+}
+void displayProducts() {
+    if (productCount == 0) {
+        printf(RED "\nNo products available!\n" reset);
+        return;
+    }
+
+    printf(BLU "\nProduct List:\n" reset);
+    for (int i = 0; i < productCount; i++) {
+        printf("ID Category: %s, ID Product: %s, Name: %s, Slots: %d, Price: %lld, Note: %s\n", 
+               products[i].idCategory, products[i].idProduct, products[i].nameProduct, products[i].slots, products[i].price, products[i].note);
+    }
+}
+void displayProductsByCategory(char idCategory[]) {
+    printf(BYEL "%-10s %-10s %-30s %-10s %-15s %-20s\n" reset, 
+           "ID Cat", "ID Prod", "Product Name", "Slots", "Price", "Note");
+    printf(BYEL "--------------------------------------------------------------------------------\n" reset);
+
+    int found = 0;
+    for (int i = 0; i < productCount; i++) {
+        if (strcmp(products[i].idCategory, idCategory) == 0) {
+            printf("%-10s %-10s %-30s %-10d %-15lld %-20s\n", 
+                   products[i].idCategory, products[i].idProduct, 
+                   products[i].nameProduct, products[i].slots, 
+                   products[i].price, products[i].note);
+            found = 1;
+        }
+    }
+    
+    if (!found) {
+        printf(BRED "No products found for this category!\n" reset);
+    }
+}
 

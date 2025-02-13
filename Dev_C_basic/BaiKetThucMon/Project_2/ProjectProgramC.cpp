@@ -15,7 +15,9 @@ int main()
 {
 //	Authentication(); //authnti acount admin
 	int choice;
+	char idCategory[4];
 	loadCategories();
+	
 	categoryMenu:
 	printf("%3s***Store Management System Using C***\n", "");
 	printf(BMAG "%15s(CATEGORY)\n" reset, "");
@@ -36,6 +38,7 @@ int main()
 	{
 		case 1:
 			{
+				
 				showCategoryList_1();
 				/*EMTY*/
 				printf(BYEL "%4s[0] Back / [1] Edit product in category\n" reset, "" );
@@ -45,7 +48,26 @@ int main()
 				}while(choice<0||choice>1);
 				if(choice==0) goto categoryMenu;
 				else{
+					printf("Choose your list product in category: "); 
+					scanf("%4s", idCategory);
+				    getchar();
+				    
+				    int flag = -1;
+				    for (int i = 0; i < categoryCount; i++) {
+				        if (strcmp(categories[i].idCategory, idCategory) == 0) {
+				            flag = i;
+				            break;
+				        }
+				    }
+				    if (flag == -1) {
+				        printf(BRED "Category ID not found!\n" reset);
+				        goto categoryMenu;
+				        break;
+				    }
 					productMenu:
+					printf(BGRN "%15sCorrect!!!\n" reset, "");
+					displayProductsByCategory(idCategory);
+					
 					printf("%3s***Store Management System Using C***\n", "");
 					printf(BCYN "%16s(PRODUCT)\n" reset, "");
 					printf("%12sCHOOSE YOUR ROLE\n", "");
@@ -64,6 +86,8 @@ int main()
 					{
 						case 1:
 							{
+								addProduct(idCategory);
+								goto categoryMenu;
 								break;
 							}
 						case 7:
