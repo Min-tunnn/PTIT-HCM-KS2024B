@@ -13,7 +13,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 int main()
 {
-//	Authentication(); //authnti acount admin
+	Authentication();//authnti acount admin
 	int choice;
 	char idCategory[4];
 	loadCategories();
@@ -38,9 +38,8 @@ int main()
 	{
 		case 1:
 			{
-				
+				system("cls");
 				showCategoryList_1();
-				/*EMTY*/
 				printf(BYEL "%4s[0] Back / [1] Edit product in category\n" reset, "" );
 				do
 				{
@@ -66,7 +65,7 @@ int main()
 				    }
 					productMenu:
 					printf(BGRN "%15sCorrect!!!\n" reset, "");
-					displayProductsByCategory(idCategory);
+					displayProducts(idCategory);
 					
 					printf("%3s***Store Management System Using C***\n", "");
 					printf(BCYN "%16s(PRODUCT)\n" reset, "");
@@ -86,7 +85,7 @@ int main()
 					{
 						case 1:
 							{
-								addProduct(idCategory);
+								addProduct_1(idCategory);
 								goto categoryMenu;
 								break;
 							}
@@ -129,18 +128,26 @@ int main()
 			}
 		case 6:
 			{
-				sortCategoriesByName_6();
+				printf("%5s[1] Sort in ascending order.\n", "");
+				printf("%5s[2] Sort in descending order.\n", "");
+				printf("%5s[0] Back menu.\n", "");
+				printf("%5sChoice: ", ""); scanf("%d", &choice);
+				if(choice==1) sortCategoriesA_6();
+				else if(choice==2) sortCategoriesD_6();
+				else goto categoryMenu;
 				goto categoryMenu;
 				break;
 			}
 		case 7:
 			{
+				system("cls");
 				checkCategoryData_7();
 				goto categoryMenu;
 				break;
 			}
 		case 8:
 	    	{
+	    		system("cls");
 		        saveCategories_8();
 		        printf(BGRN "Categories saved successfully!\n" reset);
 		        goto categoryMenu;
@@ -148,6 +155,7 @@ int main()
 	    	}
 		case 0:
 			{
+				system("cls");
 			    printf(BYEL"\n%5s========= Thank you =========\n", "");
 			    printf("%5s  ===== See you soon =====" reset, "");
 			    exit(0);
