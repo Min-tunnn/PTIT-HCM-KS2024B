@@ -1,4 +1,81 @@
+//libery
 #include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+//limits binary
+#define MAX_CategoryList 100
+#define MAX_Products 100
+//Acount admin
+#define EMAIL "t"
+#define PASSWORD "T"
+
+//regular text
+#define BLK "\e[0;30m"
+#define RED "\e[0;31m"
+#define GRN "\e[0;32m"
+#define YEL "\e[0;33m"
+#define BLU "\e[0;34m"
+#define MAG "\e[0;35m"
+#define CYN "\e[0;36m"
+#define WHT "\e[0;37m"
+
+//Regular bold text
+#define BBLK "\e[1;30m"
+#define BRED "\e[1;31m"
+#define BGRN "\e[1;32m"
+#define BYEL "\e[1;33m"
+#define BBLU "\e[1;34m"
+#define BMAG "\e[1;35m"
+#define BCYN "\e[1;36m"
+#define BWHT "\e[1;37m"
+
+//Regular background
+#define BLKB "\e[40m"
+#define REDB "\e[41m"
+#define GRNB "\e[42m"
+#define YELB "\e[43m"
+#define BLUB "\e[44m"
+#define MAGB "\e[45m"
+#define CYNB "\e[46m"
+#define WHTB "\e[47m"
+
+//High intensty background
+#define BLKHB "\e[0;100m"
+#define REDHB "\e[0;101m"
+#define GRNHB "\e[0;102m"
+#define YELHB "\e[0;103m"
+#define BLUHB "\e[0;104m"
+#define MAGHB "\e[0;105m"
+#define CYNHB "\e[0;106m"
+#define WHTHB "\e[0;107m"
+
+//High intensty text
+#define HBLK "\e[0;90m"
+#define HRED "\e[0;91m"
+#define HGRN "\e[0;92m"
+#define HYEL "\e[0;93m"
+#define HBLU "\e[0;94m"
+#define HMAG "\e[0;95m"
+#define HCYN "\e[0;96m"
+#define HWHT "\e[0;97m"
+
+//Bold high intensity text
+#define BHBLK "\e[1;90m"
+#define BHRED "\e[1;91m"
+#define BHGRN "\e[1;92m"
+#define BHYEL "\e[1;93m"
+#define BHBLU "\e[1;94m"
+#define BHMAG "\e[1;95m"
+#define BHCYN "\e[1;96m"
+#define BHWHT "\e[1;97m"
+
+//Reset
+#define reset "\e[0m"
+#define CRESET "\e[0m"
+#define COLOR_RESET "\e[0m"
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 int ErrorPass=5;
 
 typedef struct {
@@ -32,7 +109,6 @@ void Authentication() {
 			break;
 		} else {
 			if(ErrorPass==0) {
-				system("cls");
 				printf(BRED "%8sYou have %d attempts remaining!!!\n" reset, "", ErrorPass);
 				printf(BYEL"\n%5s===Password entered too many times===\n", "");
 				printf("%5s  ===== Please try again later =====" reset, "");
@@ -41,7 +117,7 @@ void Authentication() {
 			system("cls");
 			printf(BRED "%15sWRONG!!!\n\n" reset, "");
 			printf(BRED "%8sYou have %d attempts remaining!!!\n" reset, "", ErrorPass);
-			ErrorPass--;
+
 		}
 	} while(1);
 
@@ -61,18 +137,17 @@ void loadCategories() { // doc file txt list_danh_muc
 	}
 }
 void showCategoryList_1() {
-	printf("%4s|====================================|\n", "", "");
-	printf("%4s|\e[45m%11sLIST CATEGORY%12s\e[0m|\n", "", "", "");
-	printf("%4s|====================================|\n", "", "");
+	printf("%16sLIST CATEGORY\n", "");
+	printf("%4s|=========|==========================|\n", "", "");
 	printf("%4s|%3sNo.%3s|%9sCategory%9s|\n", "", "", "", "", "");
-	printf("%4s|====================================|\n", "", "");
+	printf("%4s|=========|==========================|\n", "", "");
 	if(categoryCount==0) {
 		printf("%4s|%15s\e[1;31mEMTY\e[0m%17s|\n", "", "", "");
 		printf("%4s|===================================|\n", "", "");
 	} else {
 		for (int i=0; i<categoryCount; i++) {
 			printf("%4s|%2s%-7s|%2s%-24s|\n", "", "", categories[i].idCategory, "", categories[i].nameCategory);
-			printf("%4s|====================================|\n", "", "");
+			printf("%4s|=========|==========================|\n", "", "");
 		}
 	}
 
@@ -179,15 +254,14 @@ void searchCategory_5() {
 	int found = 0;
 
 	printf("\nMatching Categories: %s\n", searchName);
-	printf("%4s|====================================|\n", "", "");
-	printf("%4s|\e[45m%11sLIST CATEGORY%12s\e[0m|\n", "", "", "");
-	printf("%4s|====================================|\n", "", "");
+	printf("%16sLIST CATEGORY\n", "");
+	printf("%4s|=========|==========================|\n", "", "");
 	printf("%4s|%3sNo.%3s|%9sCategory%9s|\n", "", "", "", "", "");
-	printf("%4s|====================================|\n", "", "");
+	printf("%4s|=========|==========================|\n", "", "");
 	for (int i=0; i<categoryCount; i++) {
 		if (strstr(categories[i].nameCategory, searchName) != NULL) { //kiem tra chuoi ko tuyet doi strstr
 			printf("%4s|%-9s|%-26s|\n", "", categories[i].idCategory,categories[i].nameCategory);
-			printf("%4s|====================================|\n", "", "");
+			printf("%4s|=========|==========================|\n", "", "");
 			found = 1;
 		}
 	}
@@ -279,7 +353,7 @@ void displayProduct(char idCategory[4]) {
 	printf("List product int category %s:\n", idCategory);
 	int found = 0;
 	printf("%3s|======================================================================================|\n", "");
-	printf("%3s|\e[46m%35sLIST PRODUCT IN %-35s\e[0m|\n", "", "", idCategory);
+	printf("%3s|%35sLIST PRODUCT IN %-35s|\n", "", "", idCategory);
 	printf("%3s|======================================================================================|\n", "");
 	printf("%3s|%3sID%3s|%13sName%13s|%2sSlots%2s|%5sPrice%5s|%8sNote%8s|\n", "", "", "", "", "", "", "", "", "", "", "");
 	printf("%3s|======================================================================================|\n", "");
@@ -310,7 +384,7 @@ int isIDExist(char id[4]) {
     }
     return 0; // ID chua ton tai
 }
-void addProduct_1(char idCategory[4]) {
+void addProduct(char idCategory[4]) {
 	PRODUCT newProduct;
 	strncpy(newProduct.idCategory, idCategory, 4);
     newProduct.idCategory[4] = '\0';  
@@ -357,7 +431,61 @@ void addProduct_1(char idCategory[4]) {
 
 	printf(BGRN "Success!\n" reset);
 }
-void editProduct_3() {
+void removeProduct() {
+    char removeID[5];
+    int choice;
+    printf("%5sREMOVE PRODUCT:\n", "");
+    printf("%3sPlease input ID Product to remove: ", "");
+    scanf("%4s", removeID);
+    getchar();
+
+    int foundProduct = -1;
+    for (int i = 0; i < productCount; i++) {
+        if (strcmp(product[i].idProduct, removeID) == 0) {
+            foundProduct = i;
+            break;
+        }
+    }
+
+    if (foundProduct == -1) {
+        printf(BRED "%4sProduct ID not found!\n" reset, "");
+        return;
+    }
+
+    printf("%3sAre you sure you want to remove this product?\n", "");
+    printf("%4s[0] No%10s[1] Yes\n", "", "");
+    printf("%4sChoice?? :", "");
+    scanf("%d", &choice);
+
+    if (choice == 1) {
+        // Xóa san pham trong mang
+        for (int j = foundProduct; j<productCount - 1; j++) 
+		{
+            product[j] = product[j + 1];
+        }
+        productCount--;
+
+        // Ghi danh sach moi vao ProdcutList.txt
+        FILE *file = fopen("ProductList.txt", "w");
+        if (file) {
+            for (int i = 0; i < productCount; i++) {
+                fprintf(file, "%s %s %s %d %lld %s\n",
+                        product[i].idCategory,
+                        product[i].idProduct,
+                        product[i].nameProduct,
+                        product[i].slots,
+                        product[i].price,
+                        product[i].note);
+            }
+            fclose(file);
+        }
+
+        printf(BGRN "Product removed successfully!\n" reset);
+    } else {
+        printf(BRED "Product remove cancelled!\n" reset);
+    }
+}
+void editProduct() {
     char editID[5];
     int found = 0;
     
@@ -443,60 +571,6 @@ void editProduct_3() {
         printf(BRED "Product ID not found!\n" reset);
     }
 }
-void removeProduct_4() {
-    char removeID[5];
-    int choice;
-    printf("%5sREMOVE PRODUCT:\n", "");
-    printf("%3sPlease input ID Product to remove: ", "");
-    scanf("%4s", removeID);
-    getchar();
-
-    int foundProduct = -1;
-    for (int i = 0; i < productCount; i++) {
-        if (strcmp(product[i].idProduct, removeID) == 0) {
-            foundProduct = i;
-            break;
-        }
-    }
-
-    if (foundProduct == -1) {
-        printf(BRED "%4sProduct ID not found!\n" reset, "");
-        return;
-    }
-
-    printf("%3sAre you sure you want to remove this product?\n", "");
-    printf("%4s[0] No%10s[1] Yes\n", "", "");
-    printf("%4sChoice?? :", "");
-    scanf("%d", &choice);
-
-    if (choice == 1) {
-        // Xóa san pham trong mang
-        for (int j = foundProduct; j<productCount - 1; j++) 
-		{
-            product[j] = product[j + 1];
-        }
-        productCount--;
-
-        // Ghi danh sach moi vao ProdcutList.txt
-        FILE *file = fopen("ProductList.txt", "w");
-        if (file) {
-            for (int i = 0; i < productCount; i++) {
-                fprintf(file, "%s %s %s %d %lld %s\n",
-                        product[i].idCategory,
-                        product[i].idProduct,
-                        product[i].nameProduct,
-                        product[i].slots,
-                        product[i].price,
-                        product[i].note);
-            }
-            fclose(file);
-        }
-
-        printf(BGRN "Product removed successfully!\n" reset);
-    } else {
-        printf(BRED "Product remove cancelled!\n" reset);
-    }
-}
 void sortProductsByNameA_5() {
     for (int i = 0; i < productCount - 1; i++) 
 	{
@@ -574,4 +648,224 @@ void searchProductByName(const char *searchName) {
     if (!found) {
         printf(BRED "Cant find \"%s\"!!\n" reset, searchName);
     }
+}
+/////////////////////////////////////////////////////////////////////////////////////////
+int main() {
+//	Authentication();//authnti acount admin
+	int choice;
+	char idCategory[5];
+	loadCategories();
+	loadProduct();
+
+categoryMenu:
+	printf("%3s***Store Management System Using C***\n", "");
+	printf(BMAG "%15s(CATEGORY)\n" reset, "");
+	printf("%12sCHOOSE YOUR ROLE\n", "");
+	printf("%8s========================\n", "");
+	printf("%8s[1] Show category list.\n", "");
+	printf("%8s[2] Add category.\n", "");
+	printf("%8s[3] Edit category (Can't edit ID).\n", "");
+	printf("%8s[4] Remove category.\n", "");
+	printf("%8s[5] Search category by name.\n", "");
+	printf("%8s[6] Sort category list by name.\n", "");
+	printf("%8s[7] Check input data for category.\n", "");
+	printf("%8s[8] Save Data.\n", "");
+	printf("%8s[0] Exit Program.\n", "");
+	printf("%8s========================\n" reset, "");
+	printf("%8sEnter The Choice:", "");
+	scanf("%d", &choice);
+	switch(choice) {
+		case 1: {
+			system("cls");
+			showCategoryList_1();
+			printf(BYEL "%4s[0] Back %5s [1] Edit product in category\n" reset, "", "");
+			do {
+				printf("%4sEnter The Choice:", "");
+				scanf("%d", &choice);
+			} while(choice<0||choice>1);
+
+			if(choice==0) {
+				system("cls");
+				goto categoryMenu;
+			} else {
+				printf("Choose your list product in category: ");
+				scanf("%4s", idCategory);
+				system("cls");
+				getchar();
+
+				int flag = -1;
+				for (int i = 0; i<categoryCount; i++) {
+					if (strcmp(categories[i].idCategory, idCategory)==0) {
+						flag=i;
+						break;
+					}
+				}
+				if (flag==-1) {
+					printf(BRED "Category ID not found!\n" reset);
+					goto categoryMenu;
+					break;
+				}
+				displayProduct(idCategory);
+productMenu:
+				
+				printf("%3s***Store Management System Using C***\n", "");
+				printf(BCYN "%16s(PRODUCT)\n" reset, "");
+				printf("%12sCHOOSE YOUR ROLE\n", "");
+				printf("%8s========================\n", "");
+				printf("%8s[1] Add product.\n", "");
+				printf("%8s[2] Edit product.\n", "");
+				printf("%8s[3] Remove product.\n", "");
+				printf("%8s[4] Sort by price.\n", "");
+				printf("%8s[5] Sort by name.\n", "");
+				printf("%8s[6] Find product by name.\n", "");
+				printf("%8s[7] Back to main menu.\n", "");
+				printf("%8s[0] Exit Program.\n", "");
+				printf("%8s========================\n" reset, "");
+				printf("%8sEnter The Choice:", "");
+				scanf("%d", &choice);
+				switch (choice) {
+					case 1: 
+						{
+							addProduct(idCategory);
+							goto productMenu;
+							break;
+						}
+					case 2:
+						{
+							editProduct();
+							goto productMenu;
+							break;	
+						}
+					case 3:
+						{
+							removeProduct();
+							goto productMenu;
+							break;
+						}
+					case 4:
+						{
+							printf("%5s[1] Sort in ascending order.\n", "");
+							printf("%5s[2] Sort in descending order.\n", "");
+							printf("%5s[0] Back menu.\n", "");
+							printf("%5sChoice: ", "");
+							do
+							{
+								scanf("%d", &choice);
+							}while(choice<0||choice>2);
+							system("cls");
+							if(choice==1) sortProductsByPriceA_4();
+							else if(choice==2) sortProductsByPriceD_4();
+							else if(choice==0) goto categoryMenu;
+							displayProduct(idCategory);
+							goto productMenu;
+							break; 
+						}
+					case 5:
+						{
+							printf("%5s[1] Sort in ascending order.\n", "");
+							printf("%5s[2] Sort in descending order.\n", "");
+							printf("%5s[0] Back menu.\n", "");
+							printf("%5sChoice: ", "");
+							do
+							{
+								scanf("%d", &choice);
+							}while(choice<0||choice>2);
+							system("cls");
+							if(choice==1) sortProductsByNameA_5();
+							else if(choice==2) sortProductsByNameD_5();
+							else if(choice==0) goto categoryMenu;
+							displayProduct(idCategory);
+							goto productMenu;
+							break; 
+						}
+					case 6:
+						{
+							char searchName[100];
+							printf("Input name to search: ");
+						    getchar();
+							fgets(searchName, 100, stdin);
+							searchName[strcspn(searchName, "\n")] = 0;
+						    searchProductByName(searchName);
+							goto productMenu;
+							break;
+						}
+					case 7: 
+						{
+							system("cls");
+							goto categoryMenu;
+							break;
+						}
+					case 0:
+						{
+							system("cls");
+							printf(BYEL"\n%5s========= Thank you =========\n", "");
+							printf("%5s  ===== See you soon =====" reset, "");
+							exit(0);
+						}
+					default:
+						system("cls");
+						printf(BRED "%5sVui long nhap lai [0-7]!!\n" reset, "");
+						goto productMenu;
+						break;
+				}
+			}
+			goto categoryMenu;
+			break;
+		}
+		case 2: {
+			addCategory_2();
+			goto categoryMenu;
+		}
+		case 3: {
+			editCategory_3();
+			goto categoryMenu;
+			break;
+		}
+		case 4: {
+			removeCategory_4();
+			goto categoryMenu;
+			break;
+		}
+		case 5: {
+			searchCategory_5();
+			goto categoryMenu;
+			break;
+		}
+		case 6: {
+			printf("%5s[1] Sort in ascending order.\n", "");
+			printf("%5s[2] Sort in descending order.\n", "");
+			printf("%5s[0] Back menu.\n", "");
+			printf("%5sChoice: ", "");
+			scanf("%d", &choice);
+			system("cls");
+			if(choice==1) sortCategoriesA_6();
+			else if(choice==2) sortCategoriesD_6();
+			else goto categoryMenu;
+			goto categoryMenu;
+			break;
+		}
+		case 7: {
+			system("cls");
+			checkCategoryData_7();
+			goto categoryMenu;
+			break;
+		}
+		case 8: {
+			system("cls");
+			saveCategories_8();
+			printf(BGRN "Categories saved successfully!\n" reset);
+			goto categoryMenu;
+			break;
+		}
+		case 0: {
+			system("cls");
+			printf(BYEL"\n%5s========= Thank you =========\n", "");
+			printf("%5s  ===== See you soon =====" reset, "");
+			exit(0);
+		}
+		default:
+			printf(BRED "Vui long nhap lai [0-9]!!!\n" reset);
+			goto categoryMenu;
+	}
+	return 0;
 }

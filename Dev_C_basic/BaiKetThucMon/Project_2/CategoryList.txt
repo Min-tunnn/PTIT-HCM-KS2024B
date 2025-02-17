@@ -1,6 +1,3 @@
-0000 1 
-0003 Dung
-0004 Phuc
-0002 Trong
-0001 Tuan
-0012 Tuan12
+0001 TrongTuan
+0005 Nguyen
+0000 2
