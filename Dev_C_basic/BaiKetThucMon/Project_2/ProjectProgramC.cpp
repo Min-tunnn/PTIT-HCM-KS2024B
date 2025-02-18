@@ -88,19 +88,19 @@ productMenu:
 				switch (choice) {
 					case 1: 
 						{
-							addProduct_1(idCategory);
+							addProduct(idCategory);
 							goto productMenu;
 							break;
 						}
 					case 2:
 						{
-							editProduct_3();
+							editProduct(idCategory);
 							goto productMenu;
 							break;	
 						}
 					case 3:
 						{
-							removeProduct_4();
+							removeProduct(idCategory);
 							goto productMenu;
 							break;
 						}
@@ -115,8 +115,8 @@ productMenu:
 								scanf("%d", &choice);
 							}while(choice<0||choice>2);
 							system("cls");
-							if(choice==1) sortProductsByPriceA_4();
-							else if(choice==2) sortProductsByPriceD_4();
+							if(choice==1) sortProductsByPriceA_4(idCategory);
+							else if(choice==2) sortProductsByPriceD_4(idCategory);
 							else if(choice==0) goto categoryMenu;
 							displayProduct(idCategory);
 							goto productMenu;
@@ -133,8 +133,8 @@ productMenu:
 								scanf("%d", &choice);
 							}while(choice<0||choice>2);
 							system("cls");
-							if(choice==1) sortProductsByNameA_5();
-							else if(choice==2) sortProductsByNameD_5();
+							if(choice==1) sortProductsByNameA_5(idCategory);
+							else if(choice==2) sortProductsByNameD_5(idCategory);
 							else if(choice==0) goto categoryMenu;
 							displayProduct(idCategory);
 							goto productMenu;
@@ -147,7 +147,7 @@ productMenu:
 						    getchar();
 							fgets(searchName, 100, stdin);
 							searchName[strcspn(searchName, "\n")] = 0;
-						    searchProductByName(searchName);
+						    searchProductByName(searchName, idCategory);
 							goto productMenu;
 							break;
 						}
