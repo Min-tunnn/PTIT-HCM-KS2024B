@@ -177,7 +177,7 @@ void addCategory_2()
 	scanf("%4s", id);
 	getchar();
 
-	for (int i = 0; i < categoryCount; i++) 
+	for (int i=0; i<categoryCount; i++) 
 	{
 		if (strcmp(categories[i].idCategory, id) == 0) 
 		{
@@ -411,7 +411,7 @@ void displayProduct(char idCategory[4])
 		printf("%3s|======================================================================================|\n", "");
 	}
 }
-int isIDExist(char id[4], char idcategory[4]) 
+int isIdExist(char id[4], char idcategory[4]) 
 {
     for (int i = 0; i < productCount; i++) 
 	{
@@ -424,7 +424,7 @@ int isIDExist(char id[4], char idcategory[4])
     }
     return 0; // ID chua ton tai
 }
-void addProduct(char idCategory[4]) 
+void addProduct_1(char idCategory[4]) 
 {
 	PRODUCT newProduct;
 	strncpy(newProduct.idCategory, idCategory, 4);
@@ -432,7 +432,7 @@ void addProduct(char idCategory[4])
     
 	printf("ID Product: ");
 	scanf("%s", &newProduct.idProduct);
-	if (isIDExist(newProduct.idProduct, idCategory)) 
+	if (isIdExist(newProduct.idProduct, idCategory)) 
 	{
         printf(BRED "ID already exits!\n" reset, newProduct.idProduct);
         return;
@@ -476,7 +476,7 @@ void addProduct(char idCategory[4])
 
 	printf(BGRN "Success!\n" reset);
 }
-void removeProduct(char idcategory[4]) 
+void removeProduct_3(char idcategory[4]) 
 {
     char removeID[5];
     int choice;
@@ -540,7 +540,7 @@ void removeProduct(char idcategory[4])
         printf(BRED "Product remove cancelled!\n" reset);
     }
 }
-void editProduct(char idcategory[4]) 
+void editProduct_2(char idcategory[4]) 
 {
     char editID[5];
     int found = 0;
@@ -796,7 +796,7 @@ void sortProductsByPriceD_4(char idcategory[4])
     }
 }
 
-void searchProductByName(const char *searchName, char idcategory[4]) 
+void searchProductByName_6(const char *searchName, char idcategory[4]) 
 {
 	system("cls");
     int found = 0;
@@ -904,19 +904,19 @@ productMenu:
 				switch (choice) {
 					case 1: 
 						{
-							addProduct(idCategory);
+							addProduct_1(idCategory);
 							goto productMenu;
 							break;
 						}
 					case 2:
 						{
-							editProduct(idCategory);
+							editProduct_2(idCategory);
 							goto productMenu;
 							break;	
 						}
 					case 3:
 						{
-							removeProduct(idCategory);
+							removeProduct_3(idCategory);
 							goto productMenu;
 							break;
 						}
@@ -963,7 +963,7 @@ productMenu:
 						    getchar();
 							fgets(searchName, 100, stdin);
 							searchName[strcspn(searchName, "\n")] = 0;
-						    searchProductByName(searchName, idCategory);
+						    searchProductByName_6(searchName, idCategory);
 							goto productMenu;
 							break;
 						}

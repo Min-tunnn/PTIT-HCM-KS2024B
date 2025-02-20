@@ -90,18 +90,22 @@ void saveCategories_8()
 }
 void addCategory_2() 
 {
+	char id[5];
 	if (categoryCount>=MAX_CategoryList) 
 	{
 		system("cls");
 		printf(BRED "\nCategory List Is Full!!\n" reset);
 		return;
 	}
-	printf("%5sInput ID: ", "");
-	char id[5];
-	scanf("%4s", id);
-	getchar();
+	do
+	{
+		printf("%5sInput ID: ", "");
+		scanf("%s", &id);
+		getchar();
+	}while(strlen(id)>4);
+		
 
-	for (int i = 0; i < categoryCount; i++) 
+	for (int i=0; i<categoryCount; i++) 
 	{
 		if (strcmp(categories[i].idCategory, id) == 0) 
 		{
@@ -110,19 +114,16 @@ void addCategory_2()
 			return;
 		}
 	}
-
-	printf("Enter category name: ");
-
-	fgets(categories[categoryCount].nameCategory, 100, stdin);
-
-	categories[categoryCount].nameCategory[strcspn(categories[categoryCount].nameCategory, "\n")] = 0; // Xóa ký t? \n
-
-	strcpy(categories[categoryCount].idCategory, id);
-
+	
+	do
+	{
+		printf("Enter category name: ");
+		fgets(categories[categoryCount].nameCategory, 100, stdin);
+		categories[categoryCount].nameCategory[strcspn(categories[categoryCount].nameCategory, "\n")] = 0; // xoa ki tu xuong hang
+		strcpy(categories[categoryCount].idCategory, id);
+	}while (strlen(categories[categoryCount].nameCategory)>50);
 	categoryCount++;
-	
 	system("cls");
-	
 	printf(BYEL "Category added! Please input [8] to save.\n" reset);
 }
 void editCategory_3() 
@@ -353,16 +354,21 @@ void addProduct(char idCategory[4])
 	PRODUCT newProduct;
 	strncpy(newProduct.idCategory, idCategory, 4);
     newProduct.idCategory[4] = '\0';  
-    
-	printf("ID Product: ");
-	scanf("%s", &newProduct.idProduct);
+    do
+	{
+		printf("ID Product: ");
+		scanf("%s", &newProduct.idProduct);
+	}while(strlen(newProduct.idProduct)>4);
 	if (isIDExist(newProduct.idProduct, idCategory)) 
 	{
         printf(BRED "ID already exits!\n" reset, newProduct.idProduct);
         return;
     }
-	printf("Name: ");
-	scanf(" %[^\n]", &newProduct.nameProduct); //nhan ca gia tri dau cach
+    do
+	{
+    	printf("Name: ");
+		scanf(" %[^\n]", &newProduct.nameProduct); //nhan ca gia tri dau cach
+	}while(strlen(newProduct.nameProduct)>50);
 	for (int i = 0; newProduct.nameProduct[i] != '\0'; i++) 
 	{//thay ' ' bang '_'
         if (newProduct.nameProduct[i] == ' ') 
@@ -375,10 +381,11 @@ void addProduct(char idCategory[4])
 	
 	printf("Price: ");
 	scanf("%ld", &newProduct.price);
-	
-	printf("Note: ");
-	scanf("%s", &newProduct.note);
-	
+	do
+	{
+		printf("Note: ");
+		scanf("%s", &newProduct.note);
+	}while(strlen(newProduct.note)>50);
 	product[productCount++] = newProduct;
 
 	FILE *file = fopen("ProductList.txt", "a");
@@ -400,7 +407,7 @@ void addProduct(char idCategory[4])
 
 	printf(BGRN "Success!\n" reset);
 }
-void removeProduct(char idcategory[4]) 
+void removeProduct_3(char idcategory[4]) 
 {
     char removeID[5];
     int choice;
@@ -464,9 +471,9 @@ void removeProduct(char idcategory[4])
         printf(BRED "Product remove cancelled!\n" reset);
     }
 }
-void editProduct(char idcategory[4]) 
+void editProduct_2(char idcategory[4]) 
 {
-    char editID[5];
+    char editID[5], newName[50], newNote[50];
     int found = 0;
     
     printf("%5sEDIT PRODUCT:\n", "");
@@ -490,10 +497,11 @@ void editProduct(char idcategory[4])
 	            printf("Note: %s\n", product[i].note);
 	
 	            printf("\nEnter new details (Press Enter to keep old values):\n");
-	
-	            printf("New Name: ");
-	            char newName[100];
-	            fgets(newName, sizeof(newName), stdin);
+				do
+				{
+					printf("New Name: ");
+		            fgets(newName, sizeof(newName), stdin);
+				}while(strlen(newName)>50);
 				if (newName[0] != '\n') 
 				{
 				    newName[strcspn(newName, "\n")] = '\0'; 
@@ -525,10 +533,11 @@ void editProduct(char idcategory[4])
 				{
 	                product[i].price = atoll(newPrice);
 	            }
-	
-	            printf("New Note: ");
-	            char newNote[50];
-	            fgets(newNote, sizeof(newNote), stdin);
+				do
+				{
+					printf("New Note: ");
+	            	fgets(newNote, sizeof(newNote), stdin);
+				}while(strlen(newNote)>50);
 	            if (newNote[0] != '\n') 
 				{
 	                newNote[strcspn(newNote, "\n")] = '\0'; 
@@ -553,15 +562,15 @@ void editProduct(char idcategory[4])
 	                        product[j].note);
 	            }
 	            fclose(file);
-	
+				system("cls");
 	            printf(BGRN "Product updated successfully!\n" reset);
 	            return;
 	        }
 		}   
     }
-
     if (!found) 
 	{
+		system("cls");
         printf(BRED "Product ID not found!\n" reset);
     }
 }

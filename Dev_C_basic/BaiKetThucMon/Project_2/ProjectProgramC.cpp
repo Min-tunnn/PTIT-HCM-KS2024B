@@ -94,13 +94,13 @@ productMenu:
 						}
 					case 2:
 						{
-							editProduct(idCategory);
+							editProduct_2(idCategory);
 							goto productMenu;
 							break;	
 						}
 					case 3:
 						{
-							removeProduct(idCategory);
+							removeProduct_3(idCategory);
 							goto productMenu;
 							break;
 						}
