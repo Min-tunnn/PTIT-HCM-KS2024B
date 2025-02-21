@@ -257,33 +257,7 @@ void checkCategoryData_7()
 		return;
 	}
 
-	char id[4], name[100];
-	int line = 0, errorCount = 0;
-	printf(BYEL "Checking category data...\n" reset);
-	while (fscanf(file, "%4s %[^\n]", id, name)==2) 
-	{
-		line++;
-		// Kiem tra ID
-		if (strlen(id) > 4) 
-		{
-			printf(BRED "Line %d: Invalid ID format (%s)!\n" reset, line, id);
-			errorCount++;
-		}
-		// Kiem tra ten
-		if (strlen(name)==0) 
-		{
-			printf(BRED "Line %d: Category name is empty!\n" reset, line);
-			errorCount++;
-		}
-	}
-	fclose(file);
-
-	if (errorCount == 0)
-	 {
-		printf(BGRN "All category data is valid!\n" reset);
-	} else {
-		printf(BRED "Total errors found: %d\n" reset, errorCount);
-	}
+	//emty!!
 }
 ///////////////////////////////////////////* Refernce - Product *///////////////////////////////////////////////////////
 
