@@ -1,0 +1,19 @@
+#display-country{
+    display: flex;
+}
+#template-2{
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    padding: 0 0 0 15px;
+}
+#template-3{
+    border-top: 1px solid black;
+}
+#template{
+    margin-left: 10%;
+    width: 1000px;
+    align-content: center;
+    align-items: center;
+    background-color: rgb(221, 220, 220);
+    padding: 0 20px 0 20px;
+}

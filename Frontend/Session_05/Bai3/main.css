@@ -1,0 +1,19 @@
+html, body{
+    justify-items: center;
+    
+}
+#table{
+    width: 500px;
+}
+#header-table{
+    background-color: rgb(33, 128, 229);
+    color: white;
+}
+#table-gray{
+    background-color: rgb(208, 208, 208);
+    color: black;
+}
+#table-white{
+    background-color: white;
+    color: black;
+}

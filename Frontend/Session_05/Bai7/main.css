@@ -1,0 +1,33 @@
+html, body{
+    justify-items: center;
+    
+}
+#table{
+    width: 100%;
+}
+#header-table{
+    background-color: rgb(33, 128, 229);
+    color: white;
+}
+#table-gray{
+    background-color: rgb(235, 235, 235);
+    color: black;
+}
+#table-white{
+    background-color: white;
+    color: black;
+}
+button{
+    border: none;
+}
+#btn_view{
+    background-color: rgb(6, 209, 6);
+    color: white;
+}
+#btn_update{
+    background-color: yellow;
+}
+#btn_delete{
+    background-color: red;
+    color: white ;
+}
