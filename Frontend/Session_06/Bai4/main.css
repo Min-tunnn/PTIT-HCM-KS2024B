@@ -1,0 +1,50 @@
+html, body{
+    padding: 0;
+    margin: 0;
+}
+#header{
+    text-align: center;
+    background-color: #4CAF50;
+    padding: 40px;
+
+}
+#container{
+    display: flex;
+    height: 1000px;
+}
+#layout-1{
+    width: 500px;
+    height: 975px;
+    background-color: rgb(221, 221, 221);
+    margin-left: 15px;
+    padding: 10px 0 0 20px;
+}
+#layout-2{
+    height: 482px;
+    background-color: rgb(254, 255, 255);
+    margin-left: 15px;
+    padding: 10px 0 0 20px;
+}
+#layout-3{
+    height: 482px;
+    background-color: rgb(255, 255, 255);
+    margin-left: 15px;
+    padding: 10px 0 0 20px; 
+    border-top: 1px solid gray;
+}
+#layout-2in1{
+    width: 100%;
+    margin-right: 15px;
+}
+#footer{
+    width: 100%;
+    color: white;
+    height: 100px;
+    text-align: center;
+    align-content: center;
+    background-color: rgb(51, 51, 51);
+}
+#li{
+    color: black;
+    text-decoration: none;
+}

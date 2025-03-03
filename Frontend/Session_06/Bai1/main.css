@@ -1,0 +1,30 @@
+html, body{
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    justify-items: center;
+    width: 100%;
+}
+#Link-text{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    color: white;
+}
+#form{
+    color: white;
+    background-color: rgb(26, 174, 224);
+    padding: 20px 10px 10px 10px;
+    width: 100%;
+}
+#profile{
+    display: flex;
+    width: 500px;
+    text-align: left;
+}
+#footer{
+    background-color: rgb(238, 237, 237);
+    color: chartreuse;
+    width: 100%;
+    padding: 5px 10px 5px 10px;
+}
