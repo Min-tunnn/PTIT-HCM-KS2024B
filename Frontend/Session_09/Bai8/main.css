@@ -1,0 +1,70 @@
+html, body{
+    padding: 0;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.header{
+    padding: 20px;
+    background-color: rgb(66, 66, 66);
+    width: 100%;
+    color: white;
+    text-align: center;
+}
+#link  {
+    margin-top: 10px;
+}
+#link a{
+    margin: 0 2px 0 2px;
+    color: white;
+    text-decoration: none;
+    font-size: small;
+}
+.header-hello{
+    padding: 50px;
+    text-align: center;
+    background-color: rgb(239, 239, 239);
+}
+.header-hello button{
+    
+    cursor: pointer;
+    caret-color: transparent;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: rgb(66, 66, 66);
+    color: white;
+}
+.content{
+    padding: 50px;
+    text-align: center;
+    background-color: rgb(255, 255, 255);
+}
+#content-layout{
+ display: flex;
+
+ justify-content: center;
+ width: 100%;
+}
+#content-layout-items{
+    margin: 0 10px 0 10px;
+    text-align: center;
+    align-content: center;
+    color: white;
+    font-weight: bold;
+    width: 150px;
+    height: 150px;
+    border-radius: 5px;
+    background-color: rgb(185, 185, 185);
+}
+.about{
+    width: 100%;
+    text-align: center;
+    background-color: lightgray;
+    padding: 50px 0 50px 0;
+}
+.footer{
+    text-align: center;
+    padding: 20px;
+    background-color: rgb(66, 66, 66);
+    color: gray;
+}

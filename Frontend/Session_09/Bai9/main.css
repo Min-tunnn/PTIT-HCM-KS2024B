@@ -1,0 +1,30 @@
+html, body{
+    padding: 0;
+    justify-items: center;
+}
+#container{
+    --custom-width: 1050px;
+    width: 1050px;
+    display: flex;
+    flex-wrap: wrap;
+}
+#img-header{
+    width: 1050px;
+    margin-bottom: 5px;
+    text-align: center;
+    
+}
+#img-items{
+    width: 343px;
+    height: 193px;
+    text-align: center;
+   
+    margin: auto;
+}
+#container-items{
+    width: var(--custom-width);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    position: static;
+}
