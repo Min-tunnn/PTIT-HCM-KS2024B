@@ -1,0 +1,8 @@
+let result1 = "javascript" + 5;   // "javascript5" (Chuỗi + số -> phép nối chuỗi)
+let result2 = "javascript" - 1;   // NaN (Chuỗi không thể chuyển thành số trừ đi 1)
+let result3 = "3" + 2;            // "32" (Chuỗi + số -> phép nối chuỗi)
+let result4 = "5" - 4;            // 1 (Chuỗi có thể chuyển thành số -> phép toán số học)
+let result5 = isNaN("123");       // false ("123" là số hợp lệ sau khi ép kiểu)
+let result6 = isNaN("hello");     // true ("hello" không thể chuyển thành số -> NaN)
+let result7 = Number.isNaN("123"); // false (Number.isNaN không ép kiểu, "123" không phải NaN)
+let result8 = Number.isNaN(NaN);  // true (NaN chính là NaN)
