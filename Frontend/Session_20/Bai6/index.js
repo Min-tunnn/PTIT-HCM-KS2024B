@@ -1,11 +1,18 @@
-let input = parseInt(prompt("Nhập giá trị cần kiểm tra: "));
-
-function isprime(n){
-    if(n<2) return false;
-    for (let i = 2; i <= Math.sqrt(n); i++) {
-        if (n % i === 0) return false;
+let input = parseInt(prompt("Nhap 1 so  nguyen bat ki: "));
+if(!isNaN(input)&&input>0){
+    alert("Nhap sai cu phap vui long nhap lai!!!");
+}else{
+    let isPrime = true;
+    if (n < 2) {
+        isPrime = false;
+    } else {
+        for (let i = 2; i <= Math.sqrt(n); i++) {
+            if (n % i === 0) {
+                isPrime = false;
+                break;
+            }
+        }
     }
-    return true;
+    document.write(isPrime);
 }
-let check = isprime(input) ? "là số nguyên tố" : "không phải là số nguyên tố";
-document.write(`Giá trị ${input} ${check}`);
+
