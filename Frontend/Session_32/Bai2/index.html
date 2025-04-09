@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session32-bai2</title>
+</head>
+<body>
+    <button onclick="btn()" style="cursor: pointer;">Bấm vào tôi</button>
+    <h1>Số lần bấm: <span id="notification"></span></h1>
+    <script>
+        let count = 0 ;
+        function btn(){
+            count +=1;
+            document.getElementById("notification").innerText=count;
+        }
+    </script>
+</body>
+</html>

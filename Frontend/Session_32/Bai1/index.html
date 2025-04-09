@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session32-bai1</title>
+    <style>
+        html, body{
+            padding: 10px;
+            margin: 0;
+            justify-items: center;
+            caret-color: transparent;
+        }
+        .background{
+            width: 200px;
+            height: 200px;
+            border: 1px solid black;
+        }
+        button{
+            margin: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div style="display: flex; gap: 20px;">
+        <div id="background1" class="background"><button onclick="btn1()">Đổi màu nền</button></div>
+        <div id="background2" class="background"><button onclick="btn2()">Đổi màu nền</button></div>
+    </div>
+    <script>
+        function getRandomColor() {
+            const letters = "0123456789ABCDEF";
+            let color = "#";
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+        function btn1() {
+            document.getElementById("background1").style.backgroundColor = getRandomColor();
+        }
+
+        function btn2() {
+            document.getElementById("background2").style.backgroundColor = getRandomColor();
+        }
+    </script>
+</body>
+</html>

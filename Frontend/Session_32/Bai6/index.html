@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesion32-Bai6</title>
+    <style>
+        html, body{
+            justify-items: center;
+            caret-color: transparent;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="text" style="font-size: 30px;">Chữ sẽ thay đổi kích thước khi lựa chọn</h1>
+    <div  style="display: flex; gap: 10px; text-align: center;">
+        <button onclick="btnUp()" style="width: 50px; height: 50px; color: white; border: none; cursor: pointer; border-radius: 5px; background-color: rgb(0, 169, 0);">+</button>
+        <button onclick="btnDown()" style="width: 50px; height: 50px; color: white; border: none; cursor: pointer; border-radius: 5px; background-color: red;">-</button>
+    </div>
+    <script>
+        let text =  document.querySelector("text");
+        let count = 30;
+
+        function btnUp(){
+            count +=10;
+            document.getElementById("text").style.fontSize=count+"px";
+        }
+        function btnDown(){
+            count -=10;
+            document.getElementById("text").style.fontSize=count+"px";
+        }
+        
+        
+
+    </script>
+</body>
+</html>

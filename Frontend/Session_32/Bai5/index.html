@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session32-bai5</title>
+    <style>
+        html, body{
+            justify-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>To-Do List K24_PTIT</h1>
+        <div>
+            <div style="text-align: center; ">
+                <input type="text" id="taskInput" placeholder="Nhập nhiệm vụ">
+                <button onclick="add()" style="background-color: rgb(0, 216, 47); cursor: pointer;">Thêm</button>
+            </div>
+            <ul id="taskList" style="list-style: none; padding: 0;width: 100%;"></ul>
+        </div>
+    </div>
+
+    <script>
+        function add() {
+            let input = document.getElementById("taskInput");
+            let task = input.value.trim();
+            if (task === "") return;
+
+            let li = document.createElement("li");
+            li.style.marginTop = "10px";
+            li.style.display = "flex";
+            li.style.justifyContent = "space-between";
+            li.style.alignItems = "center";
+            li.style.padding="0 10px 0 10px";
+            
+            li.innerHTML = `
+                ${task}
+                <button onclick="this.parentElement.remove()"style="right: 0; background-color: red; color: white; cursor: pointer;">X</button>
+            `;
+            document.getElementById("taskList").appendChild(li);
+            input.value = ""; // clear input
+        }
+    </script>
+</body>
+</html>

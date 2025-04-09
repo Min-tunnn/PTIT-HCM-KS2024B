@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session32-bai3</title>
+    <style>
+        html, body{
+            justify-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div style="display: flex; width: 300px; justify-content: center; gap: 10px;">
+        <input type="text" placeholder="Nhập tên môn học" id="monhoc"> 
+        <button onclick="add()" style="cursor: pointer;">Thêm môn học</button>
+    </div>
+    <div id="list" style="width: 100%;">
+
+    </div>
+    
+    <script>
+        let arr = [];
+        let id = 0;
+        
+        
+        function add(){
+            let monhoc = document.getElementById("monhoc").value.trim();
+            if(monhoc===""){
+            alert("Vui lòng nhập môn học!!!");
+        }else{
+            const item = {
+                ID: id++,
+                NAME: monhoc
+            }
+            arr.push(item);
+            alert("Thêm thành công");
+            }
+            document.getElementById("monhoc").value="";
+            showlist();
+        }
+        function showlist() {
+            let listDiv = document.getElementById("list");
+            listDiv.innerHTML = ""; 
+
+            arr.forEach((subject, index) => {
+                let div = document.createElement("div");
+                div.className = "subject";
+                div.innerText = `${index + 1}. ${subject.NAME}`;
+                listDiv.appendChild(div);
+            });
+        }
+        console.log(arr);
+            
+    </script>
+</body>
+</html>
