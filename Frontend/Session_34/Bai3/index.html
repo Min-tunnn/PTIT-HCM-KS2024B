@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session34-bai3</title>
+    <style>
+        html, body{
+            padding: 0;
+            margin: 0;
+            justify-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="container" style="justify-items: center;">
+        <div id="form" style="width: auto; height: auto; box-shadow: 0 0 10px 0 black; border: 2px; padding: 10px 10px 10px 10px;">
+            <h1 style="text-align: center; margin: 0;">Login</h1>
+            <label for="">Email</label><br>
+            <input style="height: 25px; width: 96%; margin-bottom: 10px;" type="text" name="" id="input_email" placeholder="Enter your email address"><br>
+            <label for="">Password</label><br>
+            <input style="height: 25px; width: 96%;" type="text" name="" id="input_pass" placeholder="Enter your password">
+            <button onclick="login()" style="width: 100%; margin-top: 10px; cursor: pointer;">Login</button>
+            <div style="display: flex; justify-content: space-between; margin-top: 10px;">
+                <a href="">Forgot password?</a>
+                <a href="">Signup</a>
+            </div>
+        </div>
+    </div>
+    <script>
+        const acount = [
+            {
+                name: 'Tuán',
+                email: 'minhtuan9168@gmail.com',
+                password: '1',
+            },
+            {
+                name: 'Trong',
+                email: 'minhtrong9168@gmail.com',
+                password: '12',
+            },
+            {
+                name: 'Cuong',
+                email: 'Cuognchodien9168@gmail.com',
+                password: '123',
+            }
+        ]
+        for(let i = 0; i < acount.length; i++){
+            localStorage.setItem(acount[i].name, JSON.stringify(acount[i]));
+        }
+        function login(){
+            email = document.getElementById("input_email").value;
+            pass = document.getElementById("input_pass").value;
+
+            document.getElementById("input_email").value = "";
+            document.getElementById("input_pass").value = "";
+            findAcount = 0;
+            for(let i = 0; i < acount.length; i++){
+                if(email===acount[i].email&&pass===acount[i].password){
+                    findAcount=1;
+                    break;
+                }
+                findAcount = 0
+            }
+            if(findAcount==1){
+                for(let i = 0; i < acount.length; i++){
+                if(email===acount[i].email&&pass===acount[i].password){
+                    alert(`Đăng nhập thành công \n`+`name: ${acount[i].name}\n`);
+                    window.location = "success.html";
+                    break;
+                }
+            }
+            }else{
+                alert("Không tìm thấy tài khoản!!!");
+            }
+        }
+        
+    </script>
+</body>
+</html>

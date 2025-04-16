@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session34-bai1</title>
+    <style>
+        html, body{
+            justify-items: center;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="container" style="background-color: rgb(213, 255, 255); width: 1440px; height: 500px; align-content: center ; justify-items: center;">
+        <div id="form" style="background-color: rgb(255, 255, 255); width: 350px; height: 300px; box-shadow: 0 0 10px 0px black; border-radius: 15px; padding: 20px;"> 
+            <h1 style="text-align: center;">Register</h1>
+            <p style="margin-bottom: 0;">Email:</p>
+            <input id="input_email" type="text" name="" placeholder="Enter your email address" style="width: 340px; height: 25px; border-radius: 5px; outline: none;">
+            <p style="margin-bottom: 0;">Password:</p>
+            <input id="input_pass" type="password" name="" placeholder="Enter your password" style="width: 340px; height: 25px; border-radius: 5px; outline: none;">
+            <p style="margin-bottom: 0;">Confirm password:</p>
+            <input id="input_confirm" type="password" name="" placeholder="Enter your confirm password" style="width: 340px; height: 25px; border-radius: 5px; outline: none;">
+            <button onclick="btn_register()" style="width: 100%; margin-top: 10px; cursor: pointer;">Register</button>
+        </div>
+    </div>
+    <script>
+    function btn_register(){
+        let input_email = document.getElementById("input_email").value;
+        let input_pass = document.getElementById("input_pass").value;
+        let input_confirm = document.getElementById("input_confirm").value;
+
+        let findError = false;
+
+        if(input_email===""){
+            alert("Vui lòng nhập email");
+            findError = true;
+        }
+        if(input_pass===""){
+            alert("Vui lòng nhập mật khẩu");
+            findError = true;
+        }
+        if(input_confirm===""){
+            alert("Vui lòng nhập xác nhận mật khẩu");
+            findError = true;
+        }
+        if(input_confirm!==input_pass){
+            alert("Vui lòng nhập mật khẩu trùng nhau!!!");
+            findError = true;
+        }
+   
+        if(sessionStorage.getItem(input_email)){
+            alert("Email bị trùng!!");
+            findError = true;
+        }
+        if(!findError){
+            alert("Đăng ký thành công!");
+    
+            const user = {
+                email: input_email,
+                password: input_pass
+            }
+            sessionStorage.setItem(input_email, JSON.stringify(user));
+            document.getElementById("input_email").value = "";
+            document.getElementById("input_pass").value = "";
+            document.getElementById("input_confirm").value = "";
+        }
+    }
+    </script>
+</body>
+</html>

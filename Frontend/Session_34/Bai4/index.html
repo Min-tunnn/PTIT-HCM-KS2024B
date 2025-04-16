@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo-List</title>
+    <style>
+        html, body{
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        #form {
+            box-shadow: 0 0 10px black;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .todo-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="form">
+            <h1 style="text-align: center;">Todo-List</h1>
+            <input type="text" id="input_todo" placeholder="Thêm việc cần làm..." style="height: 25px; width: 200px;"><br>
+            <button onclick="btn_add()" style="margin-top: 10px; cursor: pointer;">Thêm</button>
+            <div id="list_todo" style="margin-top: 10px;"></div>
+        </div>
+    </div>
+
+    <script>
+        let count = localStorage.getItem("number") ? parseInt(localStorage.getItem("number")) : 0;
+
+        function btn_add(){
+            let todo = document.getElementById("input_todo").value.trim();
+            if(todo === "") {
+                alert("Bạn chưa nhập việc cần làm!");
+                return;
+            }
+            localStorage.setItem(count, todo);
+            count++;
+            localStorage.setItem("number", count);
+            document.getElementById("input_todo").value = "";
+            renderList();
+        }
+
+        function renderList(){
+            let listTodo = document.getElementById("list_todo");
+            listTodo.innerHTML = "";
+            let total = localStorage.getItem("number") ? parseInt(localStorage.getItem("number")) : 0;
+            for(let i = 0; i < total; i++){
+                let todo = localStorage.getItem(i);
+                if(todo){
+                    let div = document.createElement("div");
+                    div.className = "todo-item";
+                    div.innerHTML = `
+                        <span>${todo}</span>
+                        <button onclick="deleteTodo(${i})" style="cursor: pointer;">Xóa</button>
+                    `;
+                    listTodo.appendChild(div);
+                }
+            }
+        }
+        function deleteTodo(index){
+            localStorage.removeItem(index);
+            renderList();
+        }
+        renderList();
+    </script>
+</body>
+</html>
