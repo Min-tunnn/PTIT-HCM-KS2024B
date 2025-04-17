@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Danh mục</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+    }
+    #header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      background: #eee;
+    }
+    #nav {
+      margin: 10px;
+      
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 8px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+    #overlay {
+      position: fixed;
+      top: 0; left: 0;
+      right: 0; bottom: 0;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(3px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    #formPopup {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      width: 300px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+    #formPopup h3 {
+      margin-top: 0;
+    }
+    #formPopup label {
+      display: block;
+      margin-top: 10px;
+    }
+    #formPopup input,
+    #formPopup select {
+      width: 100%;
+      padding: 5px;
+      margin-top: 5px;
+    }
+    #formPopup button {
+      margin-top: 15px;
+      padding: 8px 12px;
+    }
+    #formPopup .actions {
+      text-align: right;
+    }
+  </style>
+</head>
+<body>
+  <div id="mainContent">
+    <div id="header">
+      <h1>Danh mục</h1>
+      <button onclick="showAddForm()">Thêm mới danh mục</button>
+    </div>
+    <div id="nav" style="width: 100%; justify-items: end; ">
+      <div style="margin-right: 100px;">
+        <select id="select" onchange="filterByStatus()">
+        <option value="">Tất cả</option>
+        <option value="Đang hoạt động">Đang hoạt động</option>
+        <option value="Ngưng hoạt động">Ngưng hoạt động</option>
+      </select>
+      <input type="search" id="search" placeholder="Tìm kiếm danh mục theo tên" oninput="filterByStatus()"></div>
+    </div>
+    <div>
+      <table>
+        <thead>
+          <tr>
+            <th>Mã danh mục</th>
+            <th>Tên danh mục</th>
+            <th>Trạng thái</th>
+            <th>Chức năng</th>
+          </tr>
+        </thead>
+        <tbody id="categoryList"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div id="overlay">
+    <div id="formPopup">
+      <h3 id="formTitle">Thêm mới danh mục</h3>
+      <label>Mã danh mục:</label>
+      <input type="text" id="categoryId">
+      <label>Tên danh mục:</label>
+      <input type="text" id="categoryName">
+      <label>Trạng thái:</label>
+      <select id="categoryStatus">
+        <option value="Đang hoạt động">Đang hoạt động</option>
+        <option value="Ngưng hoạt động">Ngưng hoạt động</option>
+      </select>
+      <div class="actions">
+        <button onclick="saveCategory()">Lưu</button>
+        <button onclick="hideForm()">Hủy</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let categories = [
+      { id: 'DM01', name: 'Điện thoại', status: 'Đang hoạt động' },
+      { id: 'DM02', name: 'Laptop', status: 'Ngưng hoạt động' }
+    ];
+    let editIndex = -1;
+
+    function displayCategories() {
+      const tbody = document.getElementById('categoryList');
+      tbody.innerHTML = '';
+      categories.forEach((c, i) => {
+        tbody.innerHTML += `
+          <tr>
+            <td>${c.id}</td>
+            <td>${c.name}</td>
+            <td>${c.status}</td>
+            <td>
+              <button onclick="showEditForm(${i})">Sửa</button>
+              <button onclick="deleteCategory(${i})">Xóa</button>
+            </td>
+          </tr>`;
+      });
+    }
+
+    function showAddForm() {
+      editIndex = -1;
+      document.getElementById('formTitle').innerText = 'Thêm mới danh mục';
+      document.getElementById('categoryId').value = '';
+      document.getElementById('categoryName').value = '';
+      document.getElementById('categoryStatus').value = 'Đang hoạt động';
+      document.getElementById('categoryId').disabled = false;
+      document.getElementById('overlay').style.display = 'flex';
+    }
+
+    function showEditForm(i) {
+      editIndex = i;
+      let c = categories[i];
+      document.getElementById('formTitle').innerText = 'Sửa danh mục';
+      document.getElementById('categoryId').value = c.id;
+      document.getElementById('categoryName').value = c.name;
+      document.getElementById('categoryStatus').value = c.status;
+      document.getElementById('categoryId').disabled = true;
+      document.getElementById('overlay').style.display = 'flex';
+    }
+
+    function hideForm() {
+      document.getElementById('overlay').style.display = 'none';
+    }
+
+    function saveCategory() {
+      const id = document.getElementById('categoryId').value.trim();
+      const name = document.getElementById('categoryName').value.trim();
+      const status = document.getElementById('categoryStatus').value;
+      if (!id) { alert('Mã danh mục không được để trống!'); return; }
+      if (!name) { alert('Tên danh mục không được để trống!'); return; }
+      if (editIndex === -1) {
+        if (categories.some(c => c.id === id)) {
+          alert('Mã danh mục đã tồn tại!');
+          return;
+        }
+        categories.push({ id, name, status });
+      } else {
+        categories[editIndex].name = name;
+        categories[editIndex].status = status;
+      }
+      hideForm();
+      filterByStatus();
+    }
+
+    function deleteCategory(i) {
+      if (confirm('Bạn có chắc muốn xóa danh mục này?')) {
+        categories.splice(i, 1);
+        filterByStatus();
+      }
+    }
+
+    function filterByStatus() {
+      const kw = document.getElementById('search').value.toLowerCase();
+      const statusF = document.getElementById('select').value;
+      const tbody = document.getElementById('categoryList');
+      tbody.innerHTML = '';
+      categories
+        .filter(c =>
+          c.name.toLowerCase().includes(kw) &&
+          (statusF === '' || c.status === statusF)
+        )
+        .forEach((c, i) => {
+          tbody.innerHTML += `
+            <tr>
+              <td>${c.id}</td>
+              <td>${c.name}</td>
+              <td>${c.status}</td>
+              <td>
+                <button onclick="showEditForm(${i})">Sửa</button>
+                <button onclick="deleteCategory(${i})">Xóa</button>
+              </td>
+            </tr>`;
+        });
+    }
+
+    displayCategories();
+  </script>
+</body>
+</html>

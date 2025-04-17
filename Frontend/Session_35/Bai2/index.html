@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session35-bai2</title>
+    <style>
+        html, body{
+
+            caret-color: transparent;
+            justify-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div> 
+        <button onclick="btn_openForm()" style="cursor: pointer; ;width: 300px; height: 50px; font-weight: bolder; color: aliceblue; background-color: rgba(0, 0, 0, 0.5); border: none;">ADD BOOKMARK</button>
+        <form id="form" action="" style="width: 300px; background-color: rgb(200, 210, 210);padding-bottom: 10px; display: none;">
+            <div id="header" style="display: flex; justify-content: space-between; width: 100%; background-color: beige;">
+                <h2 style="margin: 0;">Add bookmark</h2>
+                <h2 onclick="btn_close()" style="margin: 0; cursor: pointer;">❌</h2>
+            </div>
+            <div style="margin-left: 10px;">
+                <p style="margin: 0;">Website name</p>
+                <input type="text" name="" id="" style="width: 94%; outline: none;">
+                <p style="margin: 0;">Website Url</p>
+                <input type="text" name="" id="" style="width: 94%; outline: none;"><br>
+                <button>Save</button>
+            </div>
+            </div>
+        </form>
+        <div id="list_wrap" style="width: 300px;display: flex ;flex-wrap: wrap; gap: 10px; justify-content: space-around; margin-top: 10px;">
+            <div id="list_items" style="width: 145px; height: 50px; background-color: aqua;">
+
+            </div>
+            <div id="list_items" style="width: 145px; height: 50px; background-color: aqua;">
+
+            </div>
+            <div id="list_items" style="width: 145px; height: 50px; background-color: aqua;">
+
+            </div>
+            <div id="list_items" style="width: 145px; height: 50px; background-color: aqua;">
+
+            </div>
+            
+    </div>
+    <script>
+        let acount = localStorage.getItem("number") ? localStorage.getItem("number") : 0;
+        function btn_openForm(){
+            document.getElementById("form").style.display = "block";
+        }function btn_close(){
+            document.getElementById("form").style.display = "none";
+        }
+    </script>
+</body>
+</html>

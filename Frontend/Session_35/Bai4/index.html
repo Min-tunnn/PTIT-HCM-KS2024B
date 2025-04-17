@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session34_bai5</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            justify-items: center;
+        }
+        .container {
+            padding: 20px;
+        }
+        li:hover{
+            background-color: beige;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" style="justify-items: center;">
+        <h1>Danh sách nhân viên Rikkei</h1>
+        <table>
+            <tr>
+                <td><label for="name">Tên nhân viên: </label><input type="text" id="name"></td>
+                <td><label for="position" style="margin-left: 10px;">Chức vụ: </label><input type="text" id="position"></td>
+            </tr>
+        </table>
+        <button id="addBtn" style="margin-top: 10px;">Thêm nhân viên</button>
+
+        <table class="table table-bordered" style="margin-top: 20px;">
+            <thead>
+                <tr>
+                    <th class="table-light">STT</th>
+                    <th class="table-light">Tên</th>
+                    <th class="table-light">Chức vụ</th>
+                </tr>
+            </thead>
+            <tbody id="employeeTable"></tbody>
+        </table>
+        <div id="page" style="display: flex; align-items: center;">
+            <button style="border: 1px solid; width: 100px;">Previous</button>
+            <ul style="align-items: center; display: flex; gap: 10px; margin: 10px; padding: 0;">
+                <!-- <li style="list-style: none; width: 50px; height: auto; background-color: aqua; text-align: center; cursor: pointer;">1</li> -->
+            </ul>
+            <button style="border: 1px solid; width: 100px;">Next</button>
+        </div>
+    </div>
+
+    <script>
+        
+        let arr_account = [];
+        let count = 0;
+        ///
+        //lam phan trang
+        let limit = 3; // Giới hạn mỗi trang 3 items
+        let thisPage = 1;
+
+        function renderPagination() {
+            let ul = document.querySelector("#page ul");
+            ul.innerHTML = "";
+
+            let totalPage = Math.ceil(arr_account.length / limit);
+            for (let i = 1; i <= totalPage; i++) {
+                let li = document.createElement("li");
+                li.style.listStyle = "none";
+                li.style.width = "50px";
+                li.style.backgroundColor = (i === thisPage) ? "orange" : "white";
+                li.style.textAlign = "center";
+                li.style.cursor = "pointer";
+                li.style.border = "1px solid gray";
+                li.style.caretColor = "transparent";
+                li.textContent = i;
+
+                li.addEventListener("click", function() {
+                    thisPage = i;
+                    renderTable();
+                });
+
+                ul.appendChild(li);
+            }
+        }
+
+        
+        document.querySelector("#page button:first-child").addEventListener("click", function() {
+            if (thisPage > 1) {
+                thisPage--;
+                renderTable();
+            }
+        });
+
+        // Next button
+        document.querySelector("#page button:last-child").addEventListener("click", function() {
+            let totalPage = Math.ceil(arr_account.length / limit);
+            if (thisPage < totalPage) {
+                thisPage++;
+                renderTable();
+            }
+        });
+        ///
+        function renderTable() {
+            let tableBody = document.getElementById("employeeTable");
+            tableBody.innerHTML = "";
+
+            let start = (thisPage - 1) * limit;
+            let end = start + limit;
+            let pageData = arr_account.slice(start, end);
+
+            pageData.forEach(emp => {
+                let newRow = document.createElement("tr");
+                newRow.innerHTML = `
+                    <td>${emp.stt}</td>
+                    <td>${emp.ten}</td>
+                    <td>${emp.chucvu}</td>
+                `;
+                tableBody.appendChild(newRow);
+            });
+
+            renderPagination();
+        }
+
+        function saveToLocalStorage() {
+            localStorage.setItem("employees", JSON.stringify(arr_account));
+        }
+
+        function loadFromLocalStorage() {
+            let data = localStorage.getItem("employees");
+            if (data) {
+                arr_account = JSON.parse(data);
+                if (arr_account.length > 0) {
+                    count = arr_account[arr_account.length - 1].stt;
+                }
+                renderTable();
+            }
+        }
+
+        document.getElementById("addBtn").addEventListener("click", function() {
+            let name = document.getElementById("name").value.trim();
+            let position = document.getElementById("position").value.trim();
+
+            if (name === "" || position === "") {
+                alert("Vui lòng nhập đầy đủ thông tin!");
+                return;
+            }
+
+            count++;
+            arr_account.push({ stt: count, ten: name, chucvu: position });
+            saveToLocalStorage();
+            renderTable();
+
+            document.getElementById("name").value = "";
+            document.getElementById("position").value = "";
+        });
+
+        function deleteEmployee(stt) {
+            arr_account = arr_account.filter(emp => emp.stt !== stt);
+            saveToLocalStorage();
+            renderTable();
+        }
+
+        window.onload = loadFromLocalStorage;
+    </script>
+</body>
+</html>
